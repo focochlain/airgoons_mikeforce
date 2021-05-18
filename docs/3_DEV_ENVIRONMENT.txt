@@ -13,7 +13,7 @@ Setup
         MikeForce_Path - retain normal setting
         Customizations_Path - set to full path of customation directory location in the local git repository
         Output_Path - set as desired
-        Output_Filename - if desired, set to "airgoons_mikeforce_testing.cam_lao_nam.pbo" or similar
+        Output_Filename - retain normal setting
         Cleanup - set false
         Working_Path - set to "%USERPROFILE%/Documents/Arma 3/mpmissions"
 2.  Open Arma 3 and launch Eden editor
