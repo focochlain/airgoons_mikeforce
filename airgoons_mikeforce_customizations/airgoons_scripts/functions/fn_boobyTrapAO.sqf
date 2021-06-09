@@ -1,10 +1,12 @@
 /*
 	agoon_fnc_boobyTrapAO.sqf
 	Author: Madman Theory
-	Last Edited: 8/6/2021
+	Last Edited: 9/6/2021
 	Version: 0.1
 
-	Purpose: On execution, scatters traps around an active zone, making sure spawn locations are valid (ie, the traps will fit/won't tip over, etc.) Factors in the relative power of each trap in terms of visibility, damage, and area of effect such that fewer deadly traps and more small, less lethal traps are spawned. Additionally notifies OPFOR to avoid the AI blundering into them.
+	Purpose: On execution, scatters traps around an active zone, making sure spawn locations are valid (ie, the traps will fit/won't tip over, etc.) 
+	Factors in the relative power of each trap in terms of visibility, damage, and area of effect such that fewer deadly traps and more small, less lethal traps are spawned. 
+	Additionally notifies OPFOR and civilians to avoid the AI blundering into them.
 
 	Parameter(s):
 
@@ -23,7 +25,7 @@
 
 */
 
-params ["_zone", ["_maxPerPlayer", 4], ["_budget", 128], ["_uxo", true], ["_antiTank", false]]; //anti-tank is off by default until 
+params ["_zone", ["_maxPerPlayer", 4], ["_budget", 128], ["_uxo", true], ["_antiTank", false]]; //anti-tank is off by default until I develop something to fuck with helis
 
 private _return = 0;
 private _zoneCenter = getMarkerPos [_zone, true];
@@ -31,12 +33,16 @@ private _zoneCenter = getMarkerPos [_zone, true];
 private _zoneRadius = (getMarkerSize _zone) select 0;
 
 //separate lists to make the flags work; values are currently provisional and will need to be adjusted for balace over time
-
+//also, once the script is working well, look into using a HashMap for this in case it helps with perf
 private _mineList = [["vn_mine_punji_01", 2], 0.5, ["vn_mine_punji_02", 1], 0.75, ["vn_mine_punji_03", 1], 0.45, ["vn_mine_tripwire_arty", 8], 0.15, ["vn_mine_tripwire_m16_04", 6], 0.25, ["vn_mine_tripwire_f1_04", 4], 0.3, ["vn_mine_tripwire_f1_02", 3], 0.35];
 private _antiTankList = [["vn_mine_tm57", 4], 0.3, ["vn_mine_m15", 4], 0.2];
 private _uxoList = [["ModuleBombCluster_01_UXO1_F", 4], 0.35, ["ModuleBombCluster_01_UXO2_F", 6], 0.25, ["ModuleBombCluster_01_UXO3_F", 3], 0.55, ["ModuleBombCluster_01_UXO4_F", 4], 0.5]; 
 
 private _roads = [];
+
+//allPlayers includes headless client AI because reasons so we need to filter them out
+private _headlessClients = entities "HeadlessClient_F";
+private _humanPlayers = allPlayers - _headlessClients;
 
 if (_uxo) then {
 	_mineList append _uxoList;
@@ -47,6 +53,7 @@ if (_antiTank) then {
 	_roads = _zoneCenter nearRoads _zoneRadius;
 };
 
+//TODO: it might be possible to move _mine down in scope into the valid mine loop
 private _mine = objNull;
 private _mineCount = 0;
 
@@ -57,7 +64,7 @@ while {_budget > 0} do {
 		_return = -1;
 		break;
 	} else {
-		if ((_mineCount / (count allPlayers)) >= _maxPerPlayer) then {
+		if ((_mineCount / (count _humanPlayers)) >= _maxPerPlayer) then {
 			_return = 2;
 			break;
 		};
@@ -81,7 +88,11 @@ while {_budget > 0} do {
 			_mine = createMine [(_trapChoice select 0), getPosATL _selectedRoad, [], 0.5];
 			_mine setDir (random 360);
 
-			private _isDone = _mine remoteExec ["spawn", 0, true];
+			/*TODO: Cheers to ralregorganon blanching at this for making me look up the finer points of Arma MP scripting; 
+			I *think* the remoteExecs can be replaced with local spawn commands and we can instead remoteExecCall
+			 the entire script to get the same effect more correctly and securely. Need to read up more on MP unit spawning first.
+			*/
+			private _isDone = _mine remoteExec ["spawn", 0, true]; 
 			//waituntil { sleep 1; scriptDone _isDone };
 
 			east revealMine _mine;
@@ -97,6 +108,8 @@ while {_budget > 0} do {
 				private _angle = random 360;
 				private _distance = _zoneRadius * (sqrt (random 1));
 				private _position = _zoneCenter getPos [_distance, _angle];
+
+				//TODO: add better handling of the case where it can't find a valid positon
 
 				private _candidatePosition =  [_position, 0, 20, 1, 0, 0.15, 0] call BIS_fnc_findSafePos; //TODO: profile this
 
