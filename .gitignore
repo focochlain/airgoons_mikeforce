@@ -4,6 +4,9 @@
 # Project specific files
 configuration.json
 
+# Reference material
+docs/reference/
+
 #######################################################################################################
 ### GitIgnore.io
 
