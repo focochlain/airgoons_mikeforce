@@ -186,9 +186,8 @@ class vn_whitelisted_arsenal_loadouts
 			{"vn_m127_mag",{-1,0,0,-1}},
 			{"vn_m128_mag",{-1,0,0,-1}},
 			{"vn_m129_mag",{-1,0,0,-1}},
-			{"vn_m14_10_mag",{-1,5,0,-1}},
-			{"vn_m14_10_t_mag",{-1,5,0,-1}},
-
+			{"vn_m14_10_mag",{-1,-1,-1,-1}}, //currently bugged to be the same weight as the 20 rounder, so I'm removing it until it's fixed
+			{"vn_m14_10_t_mag",{-1,-1,-1,-1}},
 			{"vn_m14_grenade_mag",{-1,1,-1,-1}},
 			{"vn_m14_mag",{-1,5,1,-1}},
 			{"vn_m14_t_mag",{-1,5,1,-1}},
@@ -401,8 +400,9 @@ class vn_whitelisted_arsenal_loadouts
 			{"vn_welrod_mag",{-1,0,-1,-1}},
 			{"murshun_cigs_matches",{0,0,0,0}},
 			{"vn_b_item_cigs_01", {0,0,0,0}},
-			{"murshun_cigs_cigpack", {2,2,2,2}},
+			{"murshun_cigs_cigpack", {2,0,2,2}},
 			{"immersion_cigs_cigar0_nv", {-1,-1,3,-1}},
+			{"immersion_cigs_cigar0", {-1,-1,3,-1}},
 			{"vn_b_item_lighter_01", {0,0,0,0}},
 			{"murshun_cigs_cig0_nv", {0,0,0,0}},
 			{"immersion_pops_poppack", {-1,1,-1,-1}}
