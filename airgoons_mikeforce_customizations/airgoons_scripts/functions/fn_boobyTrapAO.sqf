@@ -92,18 +92,17 @@ while {_budget > 0} do {
 			I *think* the remoteExecs can be replaced with local spawn commands and we can instead remoteExecCall
 			 the entire script to get the same effect more correctly and securely. Need to read up more on MP unit spawning first.
 			*/
-			private _isDone = _mine remoteExec ["spawn", 0, true]; 
+			//private _isDone = _mine remoteExec ["spawn", 0, true]; 
 			//waituntil { sleep 1; scriptDone _isDone };
 
 			east revealMine _mine;
 			civilian revealMine _mine;
 			_mineCount = _mineCount + 1;
 		} else {
-			_mine = createMine [(_trapChoice select 0), [0,0,200], [], 0];
-			_mine enableSimulation false;
 			private _validPosition = false;
+			private _tries = 0;
 
-			while {!_validPosition} do {
+			while {!_validPosition && _tries <= 5} do {
 				//because of how the objectives are laid out, a uniform distribution works better for our purposes
 				private _angle = random 360;
 				private _distance = _zoneRadius * (sqrt (random 1));
@@ -115,17 +114,27 @@ while {_budget > 0} do {
 
 				if (count _candidatePosition == 2) then {
 					_validPosition = true;
+					//because findSafePos returns a Position2D and createMine wants a PositionAGL, we need separately pass the x and y, and call getTerrainHeightASL for the z coord
+					_mine = createMine [(_trapChoice select 0), [_candidatePosition select 0, _candidatePosition select 1, getTerrainHeightASL (_candidatePosition)], [], 0];
 					_mine setDir (random 360);
 					_mine setVehiclePosition [_candidatePosition, [], 0, "NONE"]; //possible candidate for optimization here
 
-					_mine enableSimulation true;
-					private _isDone = _mine remoteExec ["spawn", 0, true];
+					//private _isDone = _mine remoteExec ["spawn", 0, true];
 					//waituntil { sleep 1; scriptDone _isDone };
 
 					east revealMine _mine;
 					civilian revealMine _mine;
 					_mineCount = _mineCount + 1;
+				} else {
+					//mitigate against infinite loops
+					_tries = _tries + 1;
 				};
+			};
+
+			if (_tries > 5) exitWith {
+				echo "Repeatedly unable to find valid location for trap, aborting to avoid infinite loop";
+				_budget = 0;
+				_return = 1;
 			};
 		};
 	};
