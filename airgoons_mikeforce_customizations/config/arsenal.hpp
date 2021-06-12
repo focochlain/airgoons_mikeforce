@@ -822,7 +822,16 @@ class vn_whitelisted_arsenal_loadouts
 			{"vn_s_mk22",{-1,3,4,-1}},
 			{"vn_s_pm",{2,-1,-1,4}},
 			{"vn_s_sten",{-1,0,4,-1}},
-			{"vn_type56_v_03",{5,1,-1,-1}}
+			{"vn_type56_v_03",{5,1,-1,-1}},
+			{"H_ParadeDressCap_01_US_F", {0,0,0,0}},
+			{"U_B_ParadeUniform_01_US_Decorated_F", {-1,5,-1,-1}},
+			{"U_B_ParadeUniform_01_US_F", {0,0,0,0}},
+			{"U_B_T_FullGhillie_tna_F",{5,5,5,5}},
+			{"U_C_Poloshirt_blue",{1,1,1,1}},
+			{"U_C_Poloshirt_burgundy",{1,1,1,1},
+			{"U_C_Poloshirt_salmon",{1,1,1,1},
+			{"U_C_Poloshirt_redwhite",{1,1,1,1},
+			{"U_C_Poloshirt_stripped",{1,1,1,1}
 		};
 	
 		backpacks[] = 
@@ -885,7 +894,8 @@ class vn_whitelisted_arsenal_loadouts
 			{"vn_o_pack_static_rpd_01",{-1,-1,-1,-1}},
 			{"vn_o_pack_static_type53_01",{-1,-1,-1,-1}},
 			{"vn_o_pack_static_type63_01",{-1,-1,-1,-1}},
-			{"vn_o_pack_t884_01",{-1,-1,-1,-1}}
+			{"vn_o_pack_t884_01",{-1,-1,-1,-1}},
+			{"B_Parachute",{-1,-1,4,-1}}
 		};
 	
 		vehicles[] = 
