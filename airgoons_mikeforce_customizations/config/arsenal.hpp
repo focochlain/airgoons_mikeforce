@@ -186,9 +186,8 @@ class vn_whitelisted_arsenal_loadouts
 			{"vn_m127_mag",{-1,0,0,-1}},
 			{"vn_m128_mag",{-1,0,0,-1}},
 			{"vn_m129_mag",{-1,0,0,-1}},
-			{"vn_m14_10_mag",{-1,5,0,-1}},
-			{"vn_m14_10_t_mag",{-1,5,0,-1}},
-
+			{"vn_m14_10_mag",{-1,-1,-1,-1}}, //currently bugged to be the same weight as the 20 rounder, so I'm removing it until it's fixed
+			{"vn_m14_10_t_mag",{-1,-1,-1,-1}},
 			{"vn_m14_grenade_mag",{-1,1,-1,-1}},
 			{"vn_m14_mag",{-1,5,1,-1}},
 			{"vn_m14_t_mag",{-1,5,1,-1}},
@@ -401,8 +400,9 @@ class vn_whitelisted_arsenal_loadouts
 			{"vn_welrod_mag",{-1,0,-1,-1}},
 			{"murshun_cigs_matches",{0,0,0,0}},
 			{"vn_b_item_cigs_01", {0,0,0,0}},
-			{"murshun_cigs_cigpack", {2,2,2,2}},
+			{"murshun_cigs_cigpack", {2,0,2,2}},
 			{"immersion_cigs_cigar0_nv", {-1,-1,3,-1}},
+			{"immersion_cigs_cigar0", {-1,-1,3,-1}},
 			{"vn_b_item_lighter_01", {0,0,0,0}},
 			{"murshun_cigs_cig0_nv", {0,0,0,0}},
 			{"immersion_pops_poppack", {-1,1,-1,-1}}
@@ -822,7 +822,16 @@ class vn_whitelisted_arsenal_loadouts
 			{"vn_s_mk22",{-1,3,4,-1}},
 			{"vn_s_pm",{2,-1,-1,4}},
 			{"vn_s_sten",{-1,0,4,-1}},
-			{"vn_type56_v_03",{5,1,-1,-1}}
+			{"vn_type56_v_03",{5,1,-1,-1}},
+			{"H_ParadeDressCap_01_US_F", {0,0,0,0}},
+			{"U_B_ParadeUniform_01_US_Decorated_F", {-1,5,-1,-1}},
+			{"U_B_ParadeUniform_01_US_F", {0,0,0,0}},
+			{"U_B_T_FullGhillie_tna_F",{5,5,5,5}},
+			{"U_C_Poloshirt_blue",{1,1,1,1}},
+			{"U_C_Poloshirt_burgundy",{1,1,1,1}},
+			{"U_C_Poloshirt_salmon",{1,1,1,1}},
+			{"U_C_Poloshirt_redwhite",{1,1,1,1}},
+			{"U_C_Poloshirt_stripped",{1,1,1,1}}
 		};
 	
 		backpacks[] = 
@@ -885,7 +894,8 @@ class vn_whitelisted_arsenal_loadouts
 			{"vn_o_pack_static_rpd_01",{-1,-1,-1,-1}},
 			{"vn_o_pack_static_type53_01",{-1,-1,-1,-1}},
 			{"vn_o_pack_static_type63_01",{-1,-1,-1,-1}},
-			{"vn_o_pack_t884_01",{-1,-1,-1,-1}}
+			{"vn_o_pack_t884_01",{-1,-1,-1,-1}},
+			{"B_Parachute",{-1,-1,4,-1}}
 		};
 	
 		vehicles[] = 
